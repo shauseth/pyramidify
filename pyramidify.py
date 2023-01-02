@@ -1,7 +1,7 @@
 import numpy as np
 import plotly.graph_objects as go
 
-class CameraPose:
+class CameraPlotter:
 
     def __init__(self, transforms, camera_size=0.4):
         self.ca_x = transforms['camera_angle_x']
@@ -24,7 +24,12 @@ class CameraPose:
         return camera
 
     def add_camera(self, M_ext, color, name):
-        camera = pose.camera_to_world(M_ext)
+        camera = self.camera_to_world(M_ext)
+        self.camera_list.append((camera, color, name))
+
+    def update_camera(self, M_ext, color, name):
+        camera = self.camera_to_world(M_ext)
+        del self.camera_list[-1]
         self.camera_list.append((camera, color, name))
 
     def plot_cameras(self):
@@ -39,3 +44,43 @@ class CameraPose:
             fig.add_trace(mesh)
         fig.update_layout(showlegend=False)
         fig.show()
+
+class CameraMover:
+    def __init__(self):
+        self.M_ext = M_ext = np.array([[1, 0, 0, 0],
+                                       [0, 1, 0, 0],
+                                       [0, 0, 1, 0],
+                                       [0, 0, 0, 1]], dtype=float)
+
+    def step_x(self, size):
+        self.M_ext[0, 3] += size
+
+    def step_y(self, size):
+        self.M_ext[1, 3] += size
+
+    def step_z(self, size):
+        self.M_ext[2, 3] += size
+
+    def rotate_x(self, angle):
+        angle = np.radians(angle)
+        R_theta = np.array([[np.cos(angle), 0, -np.sin(angle), 0],
+                            [0, 1, 0, 0],
+                            [np.sin(angle), 0, np.cos(angle), 0],
+                            [0, 0, 0, 1]], dtype=float)
+        self.M_ext = R_theta @ self.M_ext
+
+    def rotate_y(self, angle):
+        angle = np.radians(angle)
+        R_phi = np.array([[1, 0, 0, 0],
+                          [0, np.cos(angle), -np.sin(angle), 0],
+                          [0, np.sin(angle), np.cos(angle), 0],
+                          [0, 0, 0, 1]], dtype=float)
+        self.M_ext = R_phi @ self.M_ext
+
+    def rotate_z(self, angle):
+        angle = np.radians(angle)
+        R_psi = np.array([[np.cos(angle), -np.sin(angle), 0, 0],
+                          [np.sin(angle), np.cos(angle), 0, 0],
+                          [0, 0, 1, 0],
+                          [0, 0, 0, 1]], dtype=float)
+        self.M_ext = R_psi @ self.M_ext
