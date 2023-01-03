@@ -1,6 +1,7 @@
 # pyramidify
-NVIDIA NeRFs for those who don't have an NVIDIA GPU.
-An interactive notebook for placing camera poses (pyramids) in your scene.
+An interactive notebook for placing camera poses (pyramids) in your scene for rendering NeRFs.
+
+Here's a guide for using NVIDIA NGP without their GUI (using Colab):
 
 ### Step 1: Images
 * Take some images of a scene using any camera.
