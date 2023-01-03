@@ -1,5 +1,6 @@
 # pyramidify
- Plot camera poses in 3D for creating NeRFs.
+NVIDIA NeRFs for those who don't have an NVIDIA GPU.
+An interactive notebook for placing camera poses (pyramids) in your scene.
 
 ### Step 1: Images
 * Take some images of a scene using any camera.
