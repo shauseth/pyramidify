@@ -1,7 +1,7 @@
 # pyramidify
 An interactive notebook for placing camera poses (pyramids) in your scene for rendering NeRFs.
 
-Here's a guide for using NVIDIA NGP without their GUI (using Colab):
+Here's a guide for using NVIDIA NGP without their GUI (using a Colab GPU):
 
 ### Step 1: Images
 * Take some images of a scene using any camera.
@@ -33,12 +33,10 @@ Here's a guide for using NVIDIA NGP without their GUI (using Colab):
     points3D.txt
 ```
 * Run transforms.ipynb.
-* This contains the camera poses for training (colored in red).
 
 ### Step 4: base_cam.json
 * Place camera poses for rendering using base_cam.ipynb.
 * Change FOV accordingly.
-* This contains the camera poses for rendering (colored in blue).
 <img src="images/poses.png" height="342"/>
 
 ### Step 5: Nvidia NGP
